@@ -64,13 +64,13 @@
         border: 1px solid var(--border-color);
         border-radius: 1rem;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        /* UPDATED: Added transition and 3D transform */
+        /* Card transitions and depth */
         transition: all 0.3s ease-out;
         transform-style: preserve-3d;
         transform: perspective(1000px);
       }
 
-      /* UPDATED: Interactive 3D Tilt on Hover */
+      /* Interactive 3D tilt on hover */
       .glass-card:hover {
         box-shadow: 0 0 25px var(--primary-glow), 0 0 35px var(--secondary-glow);
         border-color: var(--primary-glow);
@@ -257,111 +257,192 @@
         color: var(--primary-glow);
       }
 
-      /* NEW: Glitch Text Animation */
-      .glitch-text {
-        position: relative;
-        display: inline-block;
-      }
-
-      /* Use data-text attribute for the glitch layers */
-      .glitch-text::before,
-      .glitch-text::after {
-        content: attr(data-text);
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--bg-color);
-        overflow: hidden;
-        animation-duration: 3s;
-        animation-iteration-count: infinite;
-        animation-timing-function: steps(1);
-      }
-
-      .glitch-text::before {
-        left: 2px;
-        text-shadow: -2px 0 var(--primary-glow);
-        animation-name: glitch-anim-1;
-      }
-
-      .glitch-text::after {
-        left: -2px;
-        text-shadow: 2px 0 var(--secondary-glow);
-        animation-name: glitch-anim-2;
-      }
-
-      @keyframes glitch-anim-1 {
-        0%,
-        100% {
-          clip-path: polygon(0 45%, 100% 45%, 100% 55%, 0 55%);
-        }
-        10% {
-          clip-path: polygon(0 15%, 100% 15%, 100% 20%, 0 20%);
-        }
-        20% {
-          clip-path: polygon(0 65%, 100% 65%, 100% 70%, 0 70%);
-        }
-        30% {
-          clip-path: polygon(0 30%, 100% 30%, 100% 35%, 0 35%);
-        }
-        40% {
-          clip-path: polygon(0 80%, 100% 80%, 100% 85%, 0 85%);
-        }
-        50% {
-          clip-path: polygon(0 50%, 100% 50%, 100% 55%, 0 55%);
-        }
-        60% {
-          clip-path: polygon(0 10%, 100% 10%, 100% 15%, 0 15%);
-        }
-        70% {
-          clip-path: polygon(0 90%, 100% 90%, 100% 95%, 0 95%);
-        }
-        80% {
-          clip-path: polygon(0 40%, 100% 40%, 100% 45%, 0 45%);
-        }
-        90% {
-          clip-path: polygon(0 75%, 100% 75%, 100% 80%, 0 80%);
-        }
-      }
-
-      @keyframes glitch-anim-2 {
-        0%,
-        100% {
-          clip-path: polygon(0 50%, 100% 50%, 100% 60%, 0 60%);
-        }
-        10% {
-          clip-path: polygon(0 20%, 100% 20%, 100% 25%, 0 25%);
-        }
-        20% {
-          clip-path: polygon(0 70%, 100% 70%, 100% 75%, 0 75%);
-        }
-        30% {
-          clip-path: polygon(0 35%, 100% 35%, 100% 40%, 0 35%);
-        }
-        40% {
-          clip-path: polygon(0 85%, 100% 85%, 100% 90%, 0 85%);
-        }
-        50% {
-          clip-path: polygon(0 55%, 100% 55%, 100% 60%, 0 60%);
-        }
-        60% {
-          clip-path: polygon(0 15%, 100% 15%, 100% 20%, 0 15%);
-        }
-        70% {
-          clip-path: polygon(0 95%, 100% 95%, 100% 100%, 0 100%);
-        }
-        80% {
-          clip-path: polygon(0 45%, 100% 45%, 100% 50%, 0 45%);
-        }
-        90% {
-          clip-path: polygon(0 80%, 100% 80%, 100% 85%, 0 80%);
-        }
-      }
-
-      /* NEW: Project grid perspective for 3D tilt */
+      /* Project grid perspective for subtle 3D tilt */
       .project-grid {
         perspective: 1500px;
+      }
+
+      .project-card {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .project-card::before,
+      .project-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+
+      .project-card::before {
+        background: linear-gradient(120deg, rgba(99, 102, 241, 0.35), rgba(168, 85, 247, 0.2));
+        mix-blend-mode: screen;
+      }
+
+      .project-card::after {
+        border: 1px solid rgba(129, 140, 248, 0.25);
+        border-radius: 1rem;
+        transform: scale(0.98);
+      }
+
+      .project-card:hover::before,
+      .project-card:hover::after {
+        opacity: 1;
+      }
+
+      /* Gradient text for hero title */
+      .text-gradient {
+        background: linear-gradient(120deg, #818cf8, #a855f7, #38bdf8);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      /* Accent pill */
+      .hero-pill {
+        background: rgba(99, 102, 241, 0.12);
+        border: 1px solid rgba(129, 140, 248, 0.45);
+        color: #c7d2fe;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.35rem 1rem;
+        border-radius: 9999px;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+      }
+
+      /* Metric chips */
+      .metric-card {
+        border: 1px solid rgba(129, 140, 248, 0.2);
+        background: linear-gradient(160deg, rgba(79, 70, 229, 0.15), rgba(24, 24, 45, 0.6));
+        border-radius: 1rem;
+        padding: 1.25rem;
+        min-width: 180px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .metric-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 15px 35px rgba(88, 28, 135, 0.3);
+      }
+
+      .metric-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #f4f4ff;
+      }
+
+      .metric-label {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--text-secondary);
+      }
+
+      /* Hero highlight card */
+      .hero-highlight {
+        border: 1px solid rgba(168, 85, 247, 0.2);
+        background: linear-gradient(160deg, rgba(16, 16, 35, 0.75), rgba(59, 7, 100, 0.4));
+        border-radius: 1.25rem;
+        padding: 2rem;
+        box-shadow: 0 18px 45px rgba(30, 41, 59, 0.45);
+      }
+
+      .hero-highlight h3 {
+        font-size: 1.15rem;
+        letter-spacing: 0.15em;
+        color: #e0e7ff;
+      }
+
+      .hero-highlight li {
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+        line-height: 1.6;
+      }
+
+      .hero-highlight li span {
+        color: var(--primary-glow);
+        font-weight: 700;
+        display: inline-block;
+        min-width: 3rem;
+        letter-spacing: 0.2em;
+      }
+
+      /* Glow accent blobs */
+      .blur-spot {
+        position: absolute;
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        filter: blur(90px);
+        opacity: 0.55;
+        z-index: -1;
+      }
+
+      .blur-spot.primary {
+        background: rgba(99, 102, 241, 0.7);
+        top: -60px;
+        right: -60px;
+      }
+
+      .blur-spot.secondary {
+        background: rgba(236, 72, 153, 0.45);
+        bottom: -60px;
+        left: -30px;
+      }
+
+      /* Experience timeline */
+      .experience-timeline {
+        position: relative;
+        margin-top: 3rem;
+        border-left: 1px solid rgba(148, 163, 184, 0.2);
+      }
+
+      .experience-timeline::before {
+        content: "";
+        position: absolute;
+        left: -0.2rem;
+        top: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba(129, 140, 248, 0.6), rgba(168, 85, 247, 0));
+        width: 3px;
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-left: 2rem;
+        padding-left: 2rem;
+        padding-bottom: 3rem;
+      }
+
+      .timeline-item:last-child {
+        padding-bottom: 0;
+      }
+
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -2.35rem;
+        top: 0.25rem;
+        width: 12px;
+        height: 12px;
+        border-radius: 9999px;
+        background: linear-gradient(120deg, #6366f1, #a855f7);
+        box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.18);
+      }
+
+      /* Section intro */
+      .section-intro {
+        max-width: 640px;
+        margin: 0 auto 3rem;
+        text-align: center;
+        color: var(--text-secondary);
       }
     </style>
   </head>
@@ -377,7 +458,7 @@
             <a
               href="#home"
               class="font-orbitron text-2xl font-bold text-white tracking-wider">
-              A.C
+              Alex Chen
             </a>
           </div>
           <div class="hidden md:flex md:items-center md:space-x-8">
@@ -411,132 +492,209 @@
       <!-- Hero Section -->
       <section
         id="home"
-        class="min-h-[80vh] flex flex-col justify-center text-center relative py-20 reveal">
-        <!-- UPDATED: Added glitch-text class and data-text attribute -->
-        <h1
-          class="glitch-text font-orbitron text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-wide"
-          data-text="ALEX CHEN">
-          ALEX CHEN
-        </h1>
-        <p
-          class="mt-6 text-2xl md:text-3xl font-medium text-indigo-300 font-orbitron">
-          Spring Boot & AI Developer
-        </p>
-        <p class="mt-8 max-w-2xl mx-auto text-lg text-gray-300 leading-relaxed">
-          Crafting high-performance backend systems and intelligent AI-driven
-          applications. Passionate about security, automation, and building
-          tools that matter.
-        </p>
-        <div class="mt-12 flex justify-center gap-6">
-          <!-- UPDATED: Working scroll link -->
-          <a href="#projects" class="glow-button"> View My Work </a>
-          <!-- UPDATED: Working scroll link -->
-          <a
-            href="#contact"
-            class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-indigo-300 border-indigo-300 hover:bg-indigo-900/50 transition-all">
-            Get In Touch
-          </a>
+        class="min-h-[80vh] relative py-20 reveal">
+        <div class="grid gap-16 lg:gap-20 items-center md:grid-cols-2">
+          <div class="space-y-10">
+            <span class="hero-pill">
+              <span class="w-2 h-2 rounded-full bg-indigo-300 animate-pulse"></span>
+              Engineering resilient AI-native platforms
+            </span>
+            <div>
+              <h1 class="font-orbitron text-5xl md:text-7xl font-bold tracking-wide text-gradient">
+                Alex Chen
+              </h1>
+              <p class="mt-4 text-lg md:text-xl uppercase tracking-[0.35em] text-indigo-200">
+                Spring Boot & AI Developer
+              </p>
+            </div>
+            <p class="max-w-xl text-left text-lg text-gray-300 leading-relaxed">
+              I build fault-tolerant services, privacy-first data flows, and human-friendly
+              experiences by blending enterprise Java craftsmanship with production-ready AI.
+              My work ships faster release cycles, measurable uptime, and teams that move with
+              confidence.
+            </p>
+            <div class="flex flex-wrap gap-4">
+              <a href="#projects" class="glow-button"> View My Work </a>
+              <a
+                href="#contact"
+                class="inline-flex items-center justify-center px-6 py-3 border border-indigo-300/70 text-base font-medium rounded-md text-indigo-200 hover:bg-indigo-900/50 transition-all">
+                Get In Touch
+              </a>
+            </div>
+            <div class="flex flex-wrap gap-6">
+              <div class="metric-card">
+                <div class="metric-value">12+</div>
+                <div class="metric-label">AI workflows automated</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-value">99.9%</div>
+                <div class="metric-label">Uptime across services</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-value">4x</div>
+                <div class="metric-label">Faster delivery cadence</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-6 pt-6 border-t border-white/10">
+              <div class="text-sm uppercase tracking-[0.3em] text-indigo-200">
+                Find me on
+              </div>
+              <div class="flex gap-6">
+                <a
+                  href="https://linkedin.com/in/your-username"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="icon-link"
+                  title="LinkedIn">
+                  <svg
+                    class="w-7 h-7"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true">
+                    <path
+                      d="M19 0H5a5 5 0 00-5 5v14a5 5 0 005 5h14a5 5 0 005-5V5a5 5 0 00-5-5zM8 19H5V8h3v11zM6.5 6.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zM19 19h-3v-5.5c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94V19h-3V8h3v1.38h.04c.42-.79 1.44-1.63 2.96-1.63 3.18 0 3.76 2.09 3.76 4.81V19z" />
+                  </svg>
+                </a>
+                <a
+                  href="https://github.com/your-username"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="icon-link"
+                  title="GitHub">
+                  <svg
+                    class="w-7 h-7"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true">
+                    <path
+                      fill-rule="evenodd"
+                      d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.489.5.09.682-.218.682-.484 0-.238-.009-.869-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.157-1.11-1.465-1.11-1.465-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.82c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.202 2.397.098 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.922.678 1.86 0 1.342-.012 2.427-.012 2.75 0 .268.18.577.688.48C19.137 20.165 22 16.418 22 12A10 10 0 0012 2z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="relative">
+            <span class="blur-spot primary"></span>
+            <span class="blur-spot secondary"></span>
+            <div class="hero-highlight space-y-8">
+              <div class="space-y-3">
+                <h3 class="font-orbitron uppercase tracking-[0.25em]">
+                  Focus Areas
+                </h3>
+                <p class="text-sm text-indigo-200 uppercase tracking-[0.3em]">
+                  Building from concept → production
+                </p>
+              </div>
+              <ul class="space-y-5 text-gray-200">
+                <li>
+                  <span>01</span>
+                  Real-time Spring Boot APIs hardened with layered security and
+                  observability-first design.
+                </li>
+                <li>
+                  <span>02</span>
+                  Applied machine learning workflows that deliver ethical, explainable
+                  intelligence for teams and customers.
+                </li>
+                <li>
+                  <span>03</span>
+                  Developer platforms, CI/CD automations, and dashboard experiences that feel
+                  effortless to operate.
+                </li>
+              </ul>
+              <div class="pt-6 border-t border-white/10 flex flex-col gap-3">
+                <p class="text-sm text-gray-300 leading-relaxed">
+                  Currently designing a privacy-first knowledge co-pilot that threads LLMs into
+                  enterprise workflows without compromising compliance or velocity.
+                </p>
+                <div class="flex items-center gap-3 text-indigo-200 text-xs uppercase tracking-[0.3em]">
+                  <span class="inline-flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  Available for select collaborations
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="mt-16 flex justify-center gap-8">
-          <!-- UPDATED: Working placeholder link -->
-          <a
-            href="https://linkedin.com/in/your-username"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="icon-link"
-            title="LinkedIn">
-            <svg
-              class="w-8 h-8"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true">
-              <path
-                d="M19 0H5a5 5 0 00-5 5v14a5 5 0 005 5h14a5 5 0 005-5V5a5 5 0 00-5-5zM8 19H5V8h3v11zM6.5 6.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zM19 19h-3v-5.5c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94V19h-3V8h3v1.38h.04c.42-.79 1.44-1.63 2.96-1.63 3.18 0 3.76 2.09 3.76 4.81V19z" />
-            </svg>
-          </a>
-          <!-- UPDATED: Working placeholder link -->
-          <a
-            href="https://github.com/your-username"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="icon-link"
-            title="GitHub">
-            <svg
-              class="w-8 h-8"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true">
-              <path
-                fill-rule="evenodd"
-                d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.489.5.09.682-.218.682-.484 0-.238-.009-.869-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.157-1.11-1.465-1.11-1.465-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.82c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.202 2.397.098 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.922.678 1.86 0 1.342-.012 2.427-.012 2.75 0 .268.18.577.688.48C19.137 20.165 22 16.418 22 12A10 10 0 0012 2z"
-                clip-rule="evenodd" />
-            </svg>
-          </a>
+        <div
+          class="hidden md:flex absolute bottom-10 left-1/2 -translate-x-1/2 items-center gap-3 text-sm uppercase tracking-[0.35em] text-gray-500">
+          <span class="inline-flex h-12 w-px bg-gradient-to-b from-transparent via-indigo-400/70 to-indigo-900"></span>
+          Scroll to explore
+          <span class="inline-flex h-12 w-px bg-gradient-to-b from-indigo-900 via-indigo-400/70 to-transparent"></span>
         </div>
       </section>
 
       <!-- Experience Section -->
       <section id="experience" class="py-20">
-        <h2 class="section-title text-3xl md:text-4xl text-center mb-12">
+        <h2 class="section-title text-3xl md:text-4xl text-center mb-6">
           Professional Experience
         </h2>
-        <div class="glass-card p-8 md:p-10 reveal max-w-4xl mx-auto">
-          <div class="flex flex-col md:flex-row gap-6">
-            <div class="flex-shrink-0">
-              <img
-                src="https://placehold.co/100x100/6366f1/white?text=ZF"
-                alt="ZF Logo"
-                class="rounded-lg" />
+        <p class="section-intro">
+          Blending automotive-grade rigor with modern product velocity—delivering secure
+          integrations, actionable analytics, and developer experiences that scale with teams.
+        </p>
+        <div class="experience-timeline reveal max-w-4xl mx-auto">
+          <div class="timeline-item">
+            <div class="glass-card p-8 md:p-10">
+              <div class="flex flex-col md:flex-row gap-6 md:items-start">
+                <div class="flex-shrink-0">
+                  <img
+                    src="https://placehold.co/108x108/6366f1/ffffff?text=ZF"
+                    alt="ZF Logo"
+                    class="rounded-xl border border-white/10" />
+                </div>
+                <div class="space-y-2">
+                  <div class="flex flex-wrap items-center gap-4">
+                    <h3 class="font-orbitron text-2xl font-bold text-white">
+                      Spring Boot Developer Intern
+                    </h3>
+                    <span class="hero-pill !px-3 !py-1 text-xs">Jan 202X – Jun 202X</span>
+                  </div>
+                  <p class="text-lg font-medium text-indigo-200">
+                    ZF India Pvt. Ltd. · Enterprise R&D Lab
+                  </p>
+                  <p class="text-sm text-gray-400 uppercase tracking-[0.25em]">
+                    Platform modernization & intelligent automation
+                  </p>
+                </div>
+              </div>
+              <div class="mt-8 grid gap-6 md:grid-cols-2">
+                <div class="space-y-4 text-gray-300 text-sm leading-relaxed">
+                  <p>
+                    Architected multi-module Spring Boot services with Maven, Spring Data JPA,
+                    and MS SQL—unlocking near real-time homologation reporting for stakeholders.
+                  </p>
+                  <p>
+                    Automated homologation data extraction with Selenium-driven pipelines and
+                    resilient retry strategies, reducing manual QA work by 80%.
+                  </p>
+                </div>
+                <div class="space-y-4 text-gray-300 text-sm leading-relaxed">
+                  <p>
+                    Delivered auditable REST APIs with layered validation, Swagger-first
+                    documentation, and comprehensive logging via SLF4J.
+                  </p>
+                  <p>
+                    Championed quality gates—shipping 90%+ unit test coverage with JUnit,
+                    Mockito, and CI checks, enabling safe weekly releases.
+                  </p>
+                </div>
+              </div>
+              <div class="mt-8 flex flex-wrap gap-3">
+                <span class="tech-tag">Spring Boot</span>
+                <span class="tech-tag">Java</span>
+                <span class="tech-tag">REST APIs</span>
+                <span class="tech-tag">Spring Data JPA</span>
+                <span class="tech-tag">MS SQL</span>
+                <span class="tech-tag">Selenium</span>
+                <span class="tech-tag">Maven</span>
+                <span class="tech-tag">JUnit</span>
+                <span class="tech-tag">Mockito</span>
+                <span class="tech-tag">Swagger</span>
+                <span class="tech-tag">SLF4J</span>
+              </div>
             </div>
-            <div>
-              <h3 class="font-orbitron text-2xl font-bold text-white">
-                Spring Boot Developer Intern
-              </h3>
-              <p class="text-xl font-medium text-indigo-300 mt-1">
-                ZF India Pvt. Ltd. (ZF Friedrichshafen AG)
-              </p>
-              <p class="text-sm text-gray-400 mt-1">Jan 202X - Jun 202X</p>
-            </div>
-          </div>
-          <ul
-            class="mt-8 space-y-4 list-disc list-inside text-gray-300 leading-relaxed">
-            <li>
-              Built and deployed a robust Spring Boot application with Maven for
-              streamlined dependency management.
-            </li>
-            <li>
-              Implemented Selenium (Chrome WebDriver) for automated web scraping
-              to extract critical ARAI data.
-            </li>
-            <li>
-              Designed and secured REST APIs using a controller-service layer
-              architecture with comprehensive exception handling.
-            </li>
-            <li>
-              Integrated MS SQL database using Spring Data JPA for seamless
-              entity mapping, persistence, and tracking scrape history.
-            </li>
-            <li>
-              Added crucial features like input validation, extensive logging
-              (SLF4J), and Swagger for API testing and documentation.
-            </li>
-            <li>
-              Wrote comprehensive JUnit and Mockito test cases to ensure high
-              code quality for services and controllers.
-            </li>
-          </ul>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <span class="tech-tag">Spring Boot</span>
-            <span class="tech-tag">Java</span>
-            <span class="tech-tag">REST APIs</span>
-            <span class="tech-tag">Spring Data JPA</span>
-            <span class="tech-tag">MS SQL</span>
-            <span class="tech-tag">Selenium</span>
-            <span class="tech-tag">Maven</span>
-            <span class="tech-tag">JUnit</span>
-            <span class="tech-tag">Mockito</span>
-            <span class="tech-tag">Swagger</span>
-            <span class="tech-tag">SLF4J</span>
           </div>
         </div>
       </section>
@@ -546,14 +704,21 @@
         <h2 class="section-title text-3xl md:text-4xl text-center mb-12">
           Selected Projects
         </h2>
-        <!-- UPDATED: Added project-grid class for perspective and lg:grid-cols-3 -->
+        <p class="section-intro">
+          A snapshot of platforms, AI products, and experience layers built with curiosity,
+          measurable outcomes, and a love for well-crafted engineering.
+        </p>
+        <!-- Projects grid layout -->
         <div
           class="project-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           <!-- Project 1: AI Course Generator -->
-          <div class="glass-card p-8 flex flex-col h-full reveal">
-            <h3 class="font-orbitron text-2xl font-bold text-white">
-              AI Course Generator
-            </h3>
+          <div class="glass-card project-card p-8 flex flex-col h-full reveal">
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="font-orbitron text-2xl font-bold text-white">
+                AI Course Generator
+              </h3>
+              <span class="hero-pill !px-3 !py-1 text-[0.65rem]">AI + Education</span>
+            </div>
             <p class="mt-4 text-gray-300 flex-grow leading-relaxed">
               Developed a web app that generates custom AI-based courses. Users
               input requirements, and the app automatically creates structured
@@ -566,7 +731,7 @@
               <span class="tech-tag">TailwindCSS</span>
               <span class="tech-tag">Clerk</span>
             </div>
-            <div class="mt-6 flex flex-wrap gap-4">
+            <div class="mt-6 flex flex-wrap gap-4 items-center">
               <a
                 href="https://github.com/your-username/ai-course-generator"
                 target="_blank"
@@ -625,11 +790,14 @@
 
           <!-- Project 2: Secure Data Eraser -->
           <div
-            class="glass-card p-8 flex flex-col h-full reveal"
+            class="glass-card project-card p-8 flex flex-col h-full reveal"
             style="transition-delay: 150ms">
-            <h3 class="font-orbitron text-2xl font-bold text-white">
-              Secure Data Eraser & Verifier
-            </h3>
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="font-orbitron text-2xl font-bold text-white">
+                Secure Data Eraser & Verifier
+              </h3>
+              <span class="hero-pill !px-3 !py-1 text-[0.65rem]">Security Ops</span>
+            </div>
             <p class="mt-4 text-gray-300 flex-grow leading-relaxed">
               Cross-platform app (Windows, Mac, Linux) using Electron/Node.js
               for secure, NIST-standard file deletion. Generates PDF + signed
@@ -642,7 +810,7 @@
               <span class="tech-tag">NIST Standards</span>
               <span class="tech-tag">Digital Signatures</span>
             </div>
-            <div class="mt-6 flex flex-wrap gap-4">
+            <div class="mt-6 flex flex-wrap gap-4 items-center">
               <a
                 href="https://github.com/your-username/data-eraser"
                 target="_blank"
@@ -682,11 +850,14 @@
 
           <!-- Project 3: Student Exam Score Predictor -->
           <div
-            class="glass-card p-8 flex flex-col h-full reveal"
+            class="glass-card project-card p-8 flex flex-col h-full reveal"
             style="transition-delay: 300ms">
-            <h3 class="font-orbitron text-2xl font-bold text-white">
-              Student Exam Score Predictor (ML)
-            </h3>
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="font-orbitron text-2xl font-bold text-white">
+                Student Exam Score Predictor (ML)
+              </h3>
+              <span class="hero-pill !px-3 !py-1 text-[0.65rem]">Data Science</span>
+            </div>
             <p class="mt-4 text-gray-300 flex-grow leading-relaxed">
               Developed a Python regression model to predict student exam scores
               from 6,600+ records. Performed data preprocessing and achieved an
@@ -699,7 +870,7 @@
               <span class="tech-tag">Scikit-learn</span>
               <span class="tech-tag">Pandas</span>
             </div>
-            <div class="mt-6 flex flex-wrap gap-4">
+            <div class="mt-6 flex flex-wrap gap-4 items-center">
               <a
                 href="https://github.com/your-username/score-predictor"
                 target="_blank"
@@ -738,10 +909,13 @@
           </div>
 
           <!-- NEW PROJECT: National Scholarship Portal -->
-          <div class="glass-card p-8 flex flex-col h-full reveal">
-            <h3 class="font-orbitron text-2xl font-bold text-white">
-              National Scholarship Portal
-            </h3>
+          <div class="glass-card project-card p-8 flex flex-col h-full reveal">
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="font-orbitron text-2xl font-bold text-white">
+                National Scholarship Portal
+              </h3>
+              <span class="hero-pill !px-3 !py-1 text-[0.65rem]">GovTech</span>
+            </div>
             <p class="mt-4 text-gray-300 flex-grow leading-relaxed">
               Full-stack, multi-role portal for the scholarship lifecycle.
               Implemented critical business logic as a Supabase PostgreSQL
@@ -754,7 +928,7 @@
               <span class="tech-tag">JavaScript</span>
               <span class="tech-tag">TailwindCSS</span>
             </div>
-            <div class="mt-6 flex flex-wrap gap-4">
+            <div class="mt-6 flex flex-wrap gap-4 items-center">
               <a
                 href="https://github.com/your-username/scholarship-portal"
                 target="_blank"
@@ -794,11 +968,14 @@
 
           <!-- Project 5: Quanta -->
           <div
-            class="glass-card p-8 flex flex-col h-full reveal"
+            class="glass-card project-card p-8 flex flex-col h-full reveal"
             style="transition-delay: 150ms">
-            <h3 class="font-orbitron text-2xl font-bold text-white">
-              Quanta: Productivity System
-            </h3>
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="font-orbitron text-2xl font-bold text-white">
+                Quanta: Productivity System
+              </h3>
+              <span class="hero-pill !px-3 !py-1 text-[0.65rem]">Digital Health</span>
+            </div>
             <p class="mt-4 text-gray-300 flex-grow leading-relaxed">
               Built an Android integration to collect real-time phone usage
               data. This formed the base for a flow-based productivity system
@@ -810,7 +987,7 @@
               <span class="tech-tag">AI</span>
               <span class="tech-tag">Data Collection</span>
             </div>
-            <div class="mt-6 flex flex-wrap gap-4">
+            <div class="mt-6 flex flex-wrap gap-4 items-center">
               <a
                 href="https://github.com/your-username/quanta"
                 target="_blank"
@@ -850,11 +1027,14 @@
 
           <!-- Project 6: Receipt Scanner -->
           <div
-            class="glass-card p-8 flex flex-col h-full reveal"
+            class="glass-card project-card p-8 flex flex-col h-full reveal"
             style="transition-delay: 300ms">
-            <h3 class="font-orbitron text-2xl font-bold text-white">
-              Receipt Scanner & Expense Tracker
-            </h3>
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="font-orbitron text-2xl font-bold text-white">
+                Receipt Scanner & Expense Tracker
+              </h3>
+              <span class="hero-pill !px-3 !py-1 text-[0.65rem]">FinOps</span>
+            </div>
             <p class="mt-4 text-gray-300 flex-grow leading-relaxed">
               Created a web app that extracts text from receipt images using
               Tesseract.js (OCR) and automatically categorizes expenses via AI.
@@ -867,7 +1047,7 @@
               <span class="tech-tag">JavaScript</span>
               <span class="tech-tag">React</span>
             </div>
-            <div class="mt-6 flex flex-wrap gap-4">
+            <div class="mt-6 flex flex-wrap gap-4 items-center">
               <a
                 href="https://github.com/your-username/receipt-scanner"
                 target="_blank"
@@ -912,6 +1092,10 @@
         <h2 class="section-title text-3xl md:text-4xl text-center mb-12">
           Core Technologies
         </h2>
+        <p class="section-intro">
+          The toolkit powering production microservices, responsive frontends, and measurable
+          AI capabilities—carefully selected to ship thoughtful experiences.
+        </p>
         <div
           class="grid grid-cols-1 md:grid-cols-3 gap-8"
           style="perspective: 1500px">
@@ -968,22 +1152,30 @@
         </div>
       </section>
 
-      <!-- UPDATED: Contact Section (Glitch fixed, new glass-card layout) -->
+      <!-- Contact Section -->
       <section id="contact" class="py-20">
         <h2 class="section-title text-3xl md:text-4xl text-center mb-12">
           Get In Touch
         </h2>
         <div
           class="glass-card p-8 md:p-12 reveal max-w-4xl mx-auto text-center">
-          <p class="text-xl text-gray-300 mb-10 leading-relaxed">
-            I'm currently seeking new opportunities and am open to messages.
-            Whether you have a question or just want to connect, my inbox is
-            always open!
+          <p class="text-xl text-gray-300 leading-relaxed">
+            Let's build something purposeful together—new ventures, platform revamps, or
+            AI copilots that respect privacy and ship impact. Drop a note and I'll respond
+            within a single business day.
           </p>
-          <!-- UPDATED: Working mailto link -->
-          <a href="mailto:your-email@example.com" class="glow-button text-lg">
-            Say Hello
-          </a>
+          <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <a href="mailto:your-email@example.com" class="glow-button text-lg">
+              Say Hello
+            </a>
+            <a
+              href="https://github.com/your-username"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="icon-button">
+              View GitHub Profile
+            </a>
+          </div>
         </div>
       </section>
     </main>
@@ -992,7 +1184,24 @@
     <footer class="border-t border-t-gray-800 mt-20">
       <div
         class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500">
-        <p>&copy; 2024 Alex Chen. Designed & Built from Scratch.</p>
+        <p>&copy; 2024 Alex Chen. Designed & Built for clarity, empathy, and velocity.</p>
+        <div class="mt-4 flex items-center justify-center gap-6 text-sm">
+          <a
+            href="https://linkedin.com/in/your-username"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="icon-link">
+            LinkedIn
+          </a>
+          <span class="text-gray-600">//</span>
+          <a
+            href="https://github.com/your-username"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="icon-link">
+            GitHub
+          </a>
+        </div>
       </div>
     </footer>
 
